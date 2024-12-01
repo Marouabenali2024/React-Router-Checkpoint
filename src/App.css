@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+
+.card {
+  padding: 2em;
+  margin: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background-color: #0a487a;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-8px) scale(1.03);
+  background-color: #ffcc00;
+}
+
+.card h5 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5em;
+  }
+}
+
+.navbar-custom {
+  background-color: #0a487a !important;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid #ffcc00;
+}
+
+.navbar-custom .navbar-brand {
+  color: #ffffff !important;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.navbar-custom .navbar-brand:hover {
+  color: #ffcc00 !important;
+}
+
+.navbar-custom .nav-link {
+  color: #ffffff !important;
+  margin-left: 15px;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.navbar-custom .nav-link:hover {
+  color: #ffcc00 !important;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+footer {
+  background-color: #0a487a;
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+  border-top: 2px solid #ffcc00;
+}
+
+footer a {
+  color: #0a487a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Gold border for the filter input */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.filter-input {
+  width: 300px;
+  border: 2px solid gold;
+}
+
+.filter-input .MuiOutlinedInput-root {
+  border: 2px solid gold;
+}
+
+.filter-input .MuiOutlinedInput-root:focus-within {
+  border-color: gold;
+}
+
+/* Style for the search button */
+.search-button {
+  background-color: gold;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #ffd700;
+}
+
+.search-button:focus {
+  outline: none;
+}
+
+/* Adjustments for mobile screens */
+@media (max-width: 768px) {
+  .filter-input {
+    width: 80%;
+  }
+
+  .search-button {
+    width: 100%;
+    padding: 12px 25px;
+  }
+}
