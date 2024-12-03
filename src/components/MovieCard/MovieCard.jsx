@@ -1,6 +1,6 @@
 import React from "react";
-import Rating from "@mui/material/Rating"; // Import the Material-UI Rating component
-import "./MovieCard.css"; // Import the MovieCard CSS
+import Rating from "@mui/material/Rating";
+import "./MovieCard.css";
 
 const MovieCard = ({ movie }) => {
   return (
@@ -8,13 +8,13 @@ const MovieCard = ({ movie }) => {
       <img
         src={movie.posterURL}
         className="card-img-top"
-        alt={movie.title}
+        alt={movie.title} // Make sure the alt text is descriptive
         style={{
           height: "250px",
           width: "100%",
           objectFit: "cover",
-          borderRadius: "8px 8px 0 0", // Rounded top corners
-          transition: "transform 0.3s ease, box-shadow 0.3s ease", 
+          borderRadius: "8px 8px 0 0",
+          transition: "transform 0.3s ease, box-shadow 0.3s ease",
         }}
       />
       <div className="card-body">
@@ -22,8 +22,7 @@ const MovieCard = ({ movie }) => {
         <p className="card-text">{movie.description}</p>
         <Rating
           name="read-only-rating"
-          value={movie.rating} 
-          readOnly
+          value={movie.rating || 0} 
         />
       </div>
     </div>

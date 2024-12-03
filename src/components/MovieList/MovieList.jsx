@@ -10,101 +10,135 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
+import "./MovieList.css";
 
 const MovieList = () => {
-  const [movies, setMovies] = useState(moviesData);
-  const [filterTitle, setFilterTitle] = useState("");
-  const [filterRating, setFilterRating] = useState(0);
+  const [movies, setMovies] = useState(moviesData); // Movie list
+  const [filterTitle, setFilterTitle] = useState(""); // Title filter
+  const [filterRating, setFilterRating] = useState(0); // Rating filter
   const [newMovie, setNewMovie] = useState({
     title: "",
     description: "",
     posterURL: "",
     rating: 0,
-  });
-  const [open, setOpen] = useState(false); // State to manage dialog open/close
+  }); // New movie data
+  const [open, setOpen] = useState(false); // Dialog open/close state
+  const [filteredMovies, setFilteredMovies] = useState(movies); // Filtered movies
+  const [userRating, setUserRating] = useState(""); // User input rating for filtering
 
+  // Add a new movie
   const addMovie = (e) => {
     e.preventDefault();
-    if (!newMovie.title || !newMovie.rating)
-      return alert("Title and rating are required!");
+    const { title, rating } = newMovie;
 
-    setMovies([
+    // Validation for required fields
+    if (!title.trim() || !rating) {
+      alert("Please provide a title and a valid rating!");
+      return;
+    }
+
+    // Add the movie to the list
+    const updatedMovies = [
       ...movies,
       {
         ...newMovie,
         id: movies.length + 1,
-        rating: parseFloat(newMovie.rating),
+        rating: parseFloat(rating), // Ensure rating is numeric
       },
-    ]);
+    ];
+    setMovies(updatedMovies);
+
+    // Reset the form and close dialog
     setNewMovie({ title: "", description: "", posterURL: "", rating: 0 });
-    setOpen(false); // Close the dialog after adding the movie
+    setFilteredMovies(updatedMovies); // Update filtered movies
+    setOpen(false);
   };
 
-  const filteredMovies = movies.filter(
-    (movie) =>
-      (filterTitle
-        ? movie.title.toLowerCase().includes(filterTitle.toLowerCase())
-        : true) && movie.rating >= filterRating
-  );
+  // Handle search and filter button click
+  const handleSearch = () => {
+    // Filter the movies based on the title and rating
+    const filtered = movies
+      .filter((movie) => {
+        // Check if the title matches (case-insensitive)
+        const titleMatch = movie.title
+          .toLowerCase()
+          .includes(filterTitle.toLowerCase());
 
-  const handleSearchClick = () => {
-    // You can add additional logic for the search button if needed
-    console.log("Search clicked:", filterTitle, filterRating);
+        // Check if the rating is equal to the user input
+        const ratingMatch = movie.rating == filterRating;
+
+        // Both title and rating need to match
+        return titleMatch && ratingMatch;
+      })
+      .sort((a, b) => b.rating - a.rating); // Sort in descending order of rating
+    setFilteredMovies(filtered);
   };
 
   return (
     <div className="container">
       <h1 className="text-center my-4">Watch What You Love</h1>
 
-      {/* Filter Section */}
-      <div className="filter-container mb-4">
-        <TextField
-          fullWidth
-          className="filter-input"
-          placeholder="Filter by title"
-          variant="outlined"
-          value={filterTitle}
-          onChange={(e) => setFilterTitle(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-
-        <div className="rating-filter">
-          <span className="me-2">Filter by Rating:</span>
-          <Rating
-            name="filter-rating"
-            value={filterRating}
-            onChange={(e, newValue) => setFilterRating(newValue || 0)}
-            precision={0.5}
-            sx={{
-              "& .MuiRating-iconEmpty": {
-                color: "gold",
-              },
-            }}
-          />
+      {/* Filter and Search Section */}
+      <div className="filter-container mb-4 d-flex flex-wrap justify-content-between align-items-center">
+        {/* Left Section: Filter and Rating */}
+        <div className="d-flex flex-column flex-md-row w-100 justify-content-between align-items-center">
+          {/* Filter Input */}
+          <div className="d-flex flex-column flex-md-row align-items-center w-100 mb-3 mb-md-0">
+            <TextField
+              fullWidth
+              placeholder="Filter by title"
+              variant="outlined"
+              value={filterTitle}
+              onChange={(e) => setFilterTitle(e.target.value)}
+              InputProps={{
+                style: { backgroundColor: "white" },
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              className="me-md-3"
+            />
+            {/* Rating Filter */}
+            <div className="rating-filter mt-3 mt-md-0">
+              <span className="me-2">Rating:</span>
+              <Rating
+                name="filter-rating"
+                value={filterRating}
+                onChange={(e, newValue) => setFilterRating(newValue || 0)}
+                precision={0.5}
+                sx={{ "& .MuiRating-iconEmpty": { color: "gold" } }}
+              />
+            </div>
+          </div>
         </div>
 
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSearchClick}
-          className="search-button"
-        >
-          Search
-        </Button>
+        {/* Right Section: Buttons */}
+        <div className="d-flex flex-wrap justify-content-md-end mt-3 mt-md-0">
+          {/* Search Button */}
+          <Button
+            id="searchbtn"
+            variant="contained"
+            color="primary"
+            onClick={handleSearch}
+            className="me-2"
+          >
+            Search
+          </Button>
+          {/* Add Movie Button */}
+          <Button
+            id="add movie btn btn"
+            variant="contained"
+            color="primary"
+            onClick={() => setOpen(true)}
+          >
+            Add Movie
+          </Button>
+        </div>
       </div>
 
-      {/* Add Movie Button */}
-      <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
-        Add Movie
-      </Button>
-
-      {/* Add Movie Dialog */}
+      {/* Dialog for Adding Movie */}
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
@@ -155,11 +189,7 @@ const MovieList = () => {
                   setNewMovie({ ...newMovie, rating: newValue || 0 })
                 }
                 precision={0.5}
-                sx={{
-                  "& .MuiRating-iconEmpty": {
-                    color: "gold",
-                  },
-                }}
+                sx={{ "& .MuiRating-iconEmpty": { color: "gold" } }}
               />
             </div>
           </form>
@@ -176,11 +206,15 @@ const MovieList = () => {
 
       {/* Movie Cards */}
       <div className="row g-3 mt-4">
-        {filteredMovies.map((movie) => (
-          <div className="col-md-4" key={movie.id}>
-            <MovieCard movie={movie} />
-          </div>
-        ))}
+        {filteredMovies.length > 0 ? (
+          filteredMovies.map((movie) => (
+            <div className="col-md-4" key={movie.id}>
+              <MovieCard movie={movie} />
+            </div>
+          ))
+        ) : (
+          <p className="text-center">No movies match the filter criteria.</p>
+        )}
       </div>
     </div>
   );

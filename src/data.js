@@ -5,7 +5,7 @@ const moviesData = [
     title: "Inception",
     description: "A mind-bending thriller by Christopher Nolan.",
     posterURL: "/assets/1.inception.jpeg",
-    rating: 2,
+    rating: 1,
   },
   {
     id: 2,
@@ -35,7 +35,7 @@ const moviesData = [
     description:
       "A man in a legal but hurtful business needs an escort for some social events and hires a beautiful prostitute he meets... only to fall in love.",
     posterURL: "/assets/5.prettywoman.jpeg",
-    rating: 3,
+    rating: 4,
   },
   {
     id: 6,
