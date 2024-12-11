@@ -1,0 +1,78 @@
+/* General styling for the container */
+div {
+  margin: 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the form elements */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Style the input fields */
+input[type='text'],
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Highlight the input fields on focus */
+input[type='text']:focus,
+textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+/* Style the textarea */
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+/* Style the button */
+button {
+  background-color: #1e3a3c;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Change the button color on hover */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Make the form responsive */
+@media (max-width: 768px) {
+  div {
+    padding: 15px;
+  }
+
+  input[type='text'],
+  textarea {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  .btn-movie {
+    font-size: 8px !important;
+  }
+}

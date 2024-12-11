@@ -1,0 +1,53 @@
+/* Navigation.css */
+/* Test to see if the CSS file is being applied */
+body {
+  background-color: yellow; /* If you see the yellow background, the file is being loaded correctly */
+}
+/* This will target only the Navbar component with class .custom-navbar */
+.navbar.custom-navbar {
+  background-color: #1e3a3c !important; /* Use !important to ensure it overrides Bootstrap's default */
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar {
+ 
+}
+
+/* Hover effect for links */
+.nav-link:hover {
+  color: #7370fb !important;
+  text-decoration: underline;
+}
+
+/* Custom styling for the brand */
+.navbar-brand {
+  font-weight: bold;
+}
+
+/* Customize the mobile menu icon */
+.icon-button {
+  color: #3808b2;
+}
+/* Navigation.css */
+
+/* Custom Navbar background color */
+.navbar {
+  background-color: #001f55 !important; /* Purple background */
+}
+
+/* Navbar link hover effect */
+.nav-link:hover {
+  color: #7370fb !important;
+  text-decoration: underline;
+}
+
+/* Custom styling for navbar brand */
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+/* Ensures the menu icon aligns nicely in mobile view */
+.d-md-none {
+  display: block !important;
+}

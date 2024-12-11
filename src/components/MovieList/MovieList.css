@@ -1,0 +1,13 @@
+/* Movie list and cards layout */
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+h1{
+  color:white;
+  font-weight: 900;
+}
+.filter-rating{
+  color:blue;
+}

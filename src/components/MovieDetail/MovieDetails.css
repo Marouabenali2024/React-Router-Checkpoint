@@ -1,0 +1,40 @@
+/* MovieDetail.css */
+
+/* Overall container for movie detail */
+.movie-detail {
+  background-image: url('/path/to/bkimgportrait2.png'); /* Replace '/path/to/' with the correct relative path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box; /* Ensures padding is included in height */
+}
+
+/* Card styling */
+.movie-detail .card {
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  color: white; /* White text for better contrast */
+  border: none;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Adds depth to the card */
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Heading in the movie detail card */
+.movie-detail h5 {
+  margin-top: 1rem;
+}
+
+/* Trailer iframe */
+.movie-detail iframe {
+  border-radius: 8px; /* Rounded corners for the iframe */
+}
+
+/* Button spacing */
+.mt-3 {
+  margin-top: 1rem !important;
+}

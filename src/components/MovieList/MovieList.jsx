@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MovieCard from "../MovieCard/MovieCard";
-import moviesData from "../../data";
+import moviesData from "../../movies.js";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -13,9 +13,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import "./MovieList.css";
 
 const MovieList = () => {
-  const [movies, setMovies] = useState(moviesData); // Movie list
+  const [movieList, setMovieList] = useState(moviesData); // Movie list state
   const [filterTitle, setFilterTitle] = useState(""); // Title filter
-  const [filterRating, setFilterRating] = useState(0); // Rating filter
+  const [filterRating, setFilterRating] = useState(null); // Rating filter (null for no rating)
   const [newMovie, setNewMovie] = useState({
     title: "",
     description: "",
@@ -23,8 +23,7 @@ const MovieList = () => {
     rating: 0,
   }); // New movie data
   const [open, setOpen] = useState(false); // Dialog open/close state
-  const [filteredMovies, setFilteredMovies] = useState(movies); // Filtered movies
-  const [userRating, setUserRating] = useState(""); // User input rating for filtering
+  const [filteredMovies, setFilteredMovies] = useState(movieList); // Filtered movies
 
   // Add a new movie
   const addMovie = (e) => {
@@ -39,14 +38,14 @@ const MovieList = () => {
 
     // Add the movie to the list
     const updatedMovies = [
-      ...movies,
+      ...movieList,
       {
         ...newMovie,
-        id: movies.length + 1,
+        id: movieList.length + 1,
         rating: parseFloat(rating), // Ensure rating is numeric
       },
     ];
-    setMovies(updatedMovies);
+    setMovieList(updatedMovies);
 
     // Reset the form and close dialog
     setNewMovie({ title: "", description: "", posterURL: "", rating: 0 });
@@ -57,7 +56,7 @@ const MovieList = () => {
   // Handle search and filter button click
   const handleSearch = () => {
     // Filter the movies based on the title and rating
-    const filtered = movies
+    const filtered = movieList
       .filter((movie) => {
         // Check if the title matches (case-insensitive)
         const titleMatch = movie.title
@@ -65,7 +64,7 @@ const MovieList = () => {
           .includes(filterTitle.toLowerCase());
 
         // Check if the rating is equal to the user input
-        const ratingMatch = movie.rating == filterRating;
+        const ratingMatch = filterRating ? movie.rating === filterRating : true;
 
         // Both title and rating need to match
         return titleMatch && ratingMatch;
@@ -102,13 +101,22 @@ const MovieList = () => {
             />
             {/* Rating Filter */}
             <div className="rating-filter mt-3 mt-md-0">
-              <span className="me-2">Rating:</span>
               <Rating
                 name="filter-rating"
                 value={filterRating}
                 onChange={(e, newValue) => setFilterRating(newValue || 0)}
                 precision={0.5}
-                sx={{ "& .MuiRating-iconEmpty": { color: "gold" } }}
+                sx={{
+                  "& .MuiRating-iconFilled": {
+                    color: "#3808b2", // Filled star color
+                  },
+                  "& .MuiRating-iconHover": {
+                    color: "#5a2eae", // Hover color
+                  },
+                  "& .MuiRating-iconEmpty": {
+                    color: "blue", // Empty star color
+                  },
+                }}
               />
             </div>
           </div>
@@ -120,7 +128,7 @@ const MovieList = () => {
           <Button
             id="searchbtn"
             variant="contained"
-            color="primary"
+            style={{ backgroundColor: "#1e3a3c", color: "white" }} // Custom background color
             onClick={handleSearch}
             className="me-2"
           >
@@ -128,9 +136,9 @@ const MovieList = () => {
           </Button>
           {/* Add Movie Button */}
           <Button
-            id="add movie btn btn"
+            id="add-movie-btn"
             variant="contained"
-            color="primary"
+            style={{ backgroundColor: "#1e3a3c", color: "white" }} // Custom background color
             onClick={() => setOpen(true)}
           >
             Add Movie
@@ -192,14 +200,14 @@ const MovieList = () => {
                 sx={{ "& .MuiRating-iconEmpty": { color: "gold" } }}
               />
             </div>
+            <Button type="submit" color="primary">
+              Add
+            </Button>
           </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="secondary">
             Cancel
-          </Button>
-          <Button onClick={addMovie} color="primary">
-            Add
           </Button>
         </DialogActions>
       </Dialog>
